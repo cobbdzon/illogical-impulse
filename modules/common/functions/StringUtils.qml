@@ -51,7 +51,7 @@ Singleton {
      * @returns {Array<{type: "text" | "think" | "code", content: string, lang?: string, completed?: boolean}>}
      */
     function splitMarkdownBlocks(markdown) {
-        const regex = /```(\w+)?\n([\s\S]*?)```|<think>([\s\S]*?)<\/think>/g;
+        const regex = /```(\w+)?\n([\s\S]*?)```|<thought>([\s\S]*?)<\/think>/g;
         /**
          * @type {{type: "text" | "think" | "code"; content: string; lang: string | undefined; completed: boolean | undefined}[]}
          */
@@ -77,7 +77,7 @@ Singleton {
                         completed: true
                     });
                 }
-            } else if (match[0].startsWith('<think>')) {
+            } else if (match[0].startsWith('<thought>')) {
                 if (match[3] && match[3].trim()) {
                     result.push({
                         type: "think",
@@ -91,8 +91,8 @@ Singleton {
         // Handle any remaining text after the last match
         if (lastIndex < markdown.length) {
             const text = markdown.slice(lastIndex);
-            // Check for unfinished <think> block
-            const thinkStart = text.indexOf('<think>');
+            // Check for unfinished <thought> block
+            const thinkStart = text.indexOf('<thought>');
             const codeStart = text.indexOf('```');
             if (thinkStart !== -1 && (codeStart === -1 || thinkStart < codeStart)) {
                 const beforeThink = text.slice(0, thinkStart);
