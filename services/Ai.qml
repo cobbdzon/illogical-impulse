@@ -742,8 +742,8 @@ Singleton {
     function createFunctionOutputMessage(name, output, includeOutputInChat = true) {
         return aiMessageComponent.createObject(root, {
             "role": "user",
-            "content": `[[ Output of ${name} ]]${includeOutputInChat ? ("\n\n<think>\n" + output + "\n</think>") : ""}`,
-            "rawContent": `[[ Output of ${name} ]]${includeOutputInChat ? ("\n\n<think>\n" + output + "\n</think>") : ""}`,
+            "content": `[[ Output of ${name} ]]${includeOutputInChat ? ("\n\n<thought>\n" + output + "\n</thought>") : ""}`,
+            "rawContent": `[[ Output of ${name} ]]${includeOutputInChat ? ("\n\n<thought>\n" + output + "\n</thought>") : ""}`,
             "functionName": name,
             "functionResponse": output,
             "thinking": false,
@@ -789,7 +789,7 @@ Singleton {
         stdout: SplitParser {
             onRead: (output) => {
                 commandExecutionProc.message.functionResponse += output + "\n\n";
-                const updatedContent = commandExecutionProc.baseMessageContent + `\n\n<think>\n<tt>${commandExecutionProc.message.functionResponse}</tt>\n</think>`;
+                const updatedContent = commandExecutionProc.baseMessageContent + `\n\n<thought>\n<tt>${commandExecutionProc.message.functionResponse}</tt>\n</thought>`;
                 commandExecutionProc.message.rawContent = updatedContent;
                 commandExecutionProc.message.content = updatedContent;
             }
