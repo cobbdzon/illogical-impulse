@@ -66,7 +66,7 @@ ApiStrategy {
             if (responseContent && responseContent.length > 0) {
                 if (isReasoning) {
                     isReasoning = false;
-                    const endBlock = "\n\n</think>\n\n";
+                    const endBlock = "\n\n</thought>\n\n";
                     message.content += endBlock;
                     message.rawContent += endBlock;
                 }
@@ -74,7 +74,7 @@ ApiStrategy {
             } else if (responseReasoning && responseReasoning.length > 0) {
                 if (!isReasoning) {
                     isReasoning = true;
-                    const startBlock = "\n\n<think>\n\n";
+                    const startBlock = "\n\n<thought>\n\n";
                     message.rawContent += startBlock;
                     message.content += startBlock;
                 }

@@ -144,11 +144,11 @@ Item {
             description: Translation.tr("Markdown test"),
             execute: () => {
                 Ai.addMessage(`
-<think>
+<thought>
 A longer think block to test revealing animation
 OwO wem ipsum dowo sit amet, consekituwet awipiscing ewit, sed do eiuwsmod tempow inwididunt ut wabowe et dowo mawa. Ut enim ad minim weniam, quis nostwud exeucitation uwuwamcow bowowis nisi ut awiquip ex ea commowo consequat. Duuis aute iwuwe dowo in wepwependewit in wowuptate velit esse ciwwum dowo eu fugiat nuwa pawiatuw. Excepteuw sint occaecat cupidatat non pwowoident, sunt in cuwpa qui officia desewunt mowit anim id est wabowum. Meouw! >w<
 Mowe uwu wem ipsum!
-</think>
+</thought>
 ## ✏️ Markdown test
 ### Formatting
 
