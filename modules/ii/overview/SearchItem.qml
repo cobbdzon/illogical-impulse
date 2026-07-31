@@ -14,7 +14,6 @@ RippleButton {
     id: root
     property LauncherSearchResult entry
     property string query
-    property string itemTags: entry?.comment ?? ""
     property bool entryShown: entry?.shown ?? true
     property string itemType: entry?.type ?? Translation.tr("App")
     property string itemName: entry?.name ?? ""
@@ -33,6 +32,7 @@ RippleButton {
     property string bigText: entry?.iconType === LauncherSearchResult.IconType.Text ? entry?.iconName ?? "" : ""
     property string materialSymbol: entry.iconType === LauncherSearchResult.IconType.Material ? entry?.iconName ?? "" : ""
     property string cliphistRawString: entry?.rawValue ?? ""
+    property string filePath: Images.isValidImageByName(entry?.name) ? entry?.name : ""
     property bool blurImage: entry?.blurImage ?? false
     
     visible: root.entryShown
@@ -229,14 +229,6 @@ RippleButton {
                     text: root.selected ? root.itemName : root.displayContent
                 }
             }
-            StyledText { // Symbol tags / description
-                visible: root.itemTags !== "" && root.itemType === Translation.tr("Symbol")
-                Layout.fillWidth: true
-                font.pixelSize: Appearance.font.pixelSize.smaller
-                color: root.selected ? Appearance.colors.colOnPrimaryContainer : Appearance.colors.colSubtext
-                elide: Text.ElideRight
-                text: root.itemTags
-            }
             Loader { // Clipboard image preview
                 active: root.cliphistRawString && Cliphist.entryIsImage(root.cliphistRawString)
                 sourceComponent: CliphistImage {
@@ -252,7 +244,7 @@ RippleButton {
         // Action text
         StyledText {
             Layout.fillWidth: false
-            visible: root.selected || root.itemType === Translation.tr("Keybind")
+            visible: root.selected
             id: clickAction
             font.pixelSize: Appearance.font.pixelSize.normal
             color: Appearance.colors.colOnPrimaryContainer
