@@ -51,7 +51,7 @@ Singleton {
      * @returns {Array<{type: "text" | "think" | "code", content: string, lang?: string, completed?: boolean}>}
      */
     function splitMarkdownBlocks(markdown) {
-        const regex = /```(\w+)?\n([\s\S]*?)```|<thought>([\s\S]*?)<\/think>/g;
+        const regex = /```(\w+)?\n([\s\S]*?)```|<thought>([\s\S]*?)<\/thought>/g;
         /**
          * @type {{type: "text" | "think" | "code"; content: string; lang: string | undefined; completed: boolean | undefined}[]}
          */
@@ -102,7 +102,7 @@ Singleton {
                         content: beforeThink
                     });
                 }
-                const thinkContent = text.slice(thinkStart + 7);
+                const thinkContent = text.slice(thinkStart + 9);
                 if (thinkContent.trim()) {
                     result.push({
                         type: "think",
