@@ -28,6 +28,9 @@ Item {
     readonly property int columns: 1
     readonly property int workspacesShown: root.rows * root.columns
 
+    // TODO: remove this bandaid solution
+    readonly property int workspaceOffsetY: -256
+
     readonly property HyprlandMonitor monitor: Hyprland.monitorFor(panelWindow.screen)
     readonly property int workspaceGroup: Math.floor((monitor.activeWorkspace?.id - workspaceOffset - 1) / workspacesShown)
     property var windows: HyprlandData.windowList
@@ -80,7 +83,7 @@ Item {
     property real scrollX: 0
 
     onCurrentWorkspaceChanged: updateScrollProps()
-    onScrollWorkspaceChanged: scrollY = (scrollWorkspace - 1) * workspaceImplicitHeight
+    onScrollWorkspaceChanged: scrollY = (scrollWorkspace - 1) * workspaceImplicitHeight + workspaceOffsetY
     onScrollWindowChanged: scrollX = scrollWindow * workspaceImplicitWidth
 
     Component.onCompleted: {
@@ -102,7 +105,7 @@ Item {
     // Helper functions
     function updateScrollProps() {
         scrollWorkspace = currentWorkspace - 1
-        scrollY = (scrollWorkspace - 1) * workspaceImplicitHeight
+        scrollY = (scrollWorkspace - 1) * workspaceImplicitHeight + workspaceOffsetY
     }
 
     function getWsRow(ws) {
