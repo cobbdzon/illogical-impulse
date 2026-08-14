@@ -104,7 +104,8 @@ Item {
                                 Layout.topMargin: root.showBolt ? 2 : 4
                                 font: batteryProgress.font
                                 text: root.numberText
-                                visible: root.percentage < 1 && root.showPercentage
+                                // Hide "100" in vertical mode since 3 digits overflow the bar
+                                visible: root.showPercentage && root.percentValue < 100
                             }
                         }
                     }
