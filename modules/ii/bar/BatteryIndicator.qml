@@ -14,7 +14,7 @@ MouseArea {
     readonly property bool isPluggedIn: Battery.isPluggedIn
     readonly property real percentage: Battery.percentage
     readonly property bool isLow: percentage <= Config.options.battery.low / 100
-    readonly property string displayText: (root.vertical && root.percentage > 99) ? "" : batteryProgress.text
+    readonly property string displayText: (root.vertical && root.percentage * 100 > 99) ? "" : batteryProgress.text
 
     implicitWidth:  vertical ? Appearance.sizes.verticalBarWidth : batteryProgress.valueBarWidth + 8
     implicitHeight: vertical ? batteryProgress.valueBarWidth + 8 : Appearance.sizes.barHeight
@@ -78,8 +78,8 @@ MouseArea {
                         Layout.alignment: Qt.AlignHCenter
                         Layout.topMargin: root.isCharging ? 2 : 4
                         font: batteryProgress.font
-                        text: root.percentage * 100 
-                        visible: root.percentage < 1
+                        text: root.displayText
+                        visible: root.displayText.length > 0
                     }
                 }
             }
