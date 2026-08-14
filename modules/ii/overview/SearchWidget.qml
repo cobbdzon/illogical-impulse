@@ -19,7 +19,6 @@ Item { // Wrapper
     readonly property int typingDebounceInterval: 200
     readonly property int typingResultLimit: 15 // Should be enough to cover the whole view
 
-    readonly property bool sharpMode: Config.options.appearance.sharpMode
     property string searchingText: LauncherSearch.query
     property bool showResults: searchingText != ""
     implicitWidth: searchWidgetContent.implicitWidth + Appearance.sizes.elevationMargin * 2
@@ -38,7 +37,7 @@ Item { // Wrapper
     }
 
     function cancelSearch() {
-        searchBar.searchInput.selectAll();
+        searchBar.searchInput.text = ""; 
         LauncherSearch.query = "";
         searchBar.animateWidth = true;
     }
@@ -101,13 +100,17 @@ Item { // Wrapper
     StyledRectangularShadow {
         target: searchWidgetContent
     }
-
     Rectangle { // Background
         id: searchWidgetContent
+        anchors {
+            top: parent.top
+            horizontalCenter: parent.horizontalCenter
+            topMargin: Appearance.sizes.elevationMargin
+        }
         clip: true
-        implicitWidth: gridLayout.implicitWidth
-        implicitHeight: gridLayout.implicitHeight
-        radius: Config.options.appearance.sharpMode ? 0 : searchBar.height / 2 + searchBar.verticalPadding
+        implicitWidth: columnLayout.implicitWidth
+        implicitHeight: columnLayout.implicitHeight
+        radius: searchBar.height / 2 + searchBar.verticalPadding
         color: Appearance.colors.colBackgroundSurfaceContainer
 
         Behavior on implicitHeight {
@@ -116,10 +119,13 @@ Item { // Wrapper
             animation: Appearance.animation.elementMove.numberAnimation.createObject(this)
         }
 
-        GridLayout {
-            id: gridLayout
-            anchors.horizontalCenter: parent.horizontalCenter
-            columns: 1
+        ColumnLayout {
+            id: columnLayout
+            anchors {
+                top: parent.top
+                horizontalCenter: parent.horizontalCenter
+            }
+            spacing: 0
 
             // clip: true
             layer.enabled: true
@@ -150,7 +156,6 @@ Item { // Wrapper
                 Layout.fillWidth: true
                 height: 1
                 color: Appearance.colors.colOutlineVariant
-                Layout.row: 1
             }
 
             ListView { // App results
@@ -207,7 +212,7 @@ Item { // Wrapper
                     anchors.left: parent?.left
                     anchors.right: parent?.right
                     entry: modelData
-                    query: StringUtils.cleanOnePrefix(root.searchingText, [Config.options.search.prefix.action, Config.options.search.prefix.app, Config.options.search.prefix.clipboard, Config.options.search.prefix.emojis, Config.options.search.prefix.math, Config.options.search.prefix.shellCommand, Config.options.search.prefix.webSearch])
+                    query: StringUtils.cleanOnePrefix(root.searchingText, [Config.options.search.prefix.action, Config.options.search.prefix.app, Config.options.search.prefix.clipboard, Config.options.search.prefix.emojis, Config.options.search.prefix.symbols, Config.options.search.prefix.math, Config.options.search.prefix.shellCommand, Config.options.search.prefix.webSearch])
 
                     Keys.onPressed: event => {
                         if (event.key === Qt.Key_Tab) {
