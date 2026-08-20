@@ -15,6 +15,7 @@ Scope {
     PanelWindow {
         id: panelWindow
 
+        WlrLayershell.layer: WlrLayer.Overlay
         readonly property bool animatedEntrance: WM.compositor !== "hyprland"
         property bool reallyVisible: false
         visible: reallyVisible
